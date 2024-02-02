@@ -6,6 +6,13 @@ Each rule is a Python script defining a `Rule` class which then does whatever yo
 
 At the heart, it uses [watchdog](https://pypi.org/project/watchdog/) to observe the specified directory and wait for events. Once a new file has been saved into the watched directory, the configured rules will be checked. If a rule matches, the rule will be executed for that file.
 
+## Installation
+
+* Clone this repository into any directory
+* Install the requirements using pip: `pip install -r requirements.txt`
+* Define your rules (see bellow)
+* Execute `folder-actions.py watch /path/to/watch`
+
 ## Defining rules
 
 The script looks into `~/.config/folder-actions/rules` and loads any Python script. Each script should contain a `Rule` class containing at least a `get_rules()` method returning a list of paths to match.

@@ -18,24 +18,6 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler, FileSystemEvent, FileSystemMovedEvent, FileClosedEvent
 
 
-class Logger:
-    @staticmethod
-    def notify(summary: str, body: str):
-        subprocess.run([
-            str(Path("~/bin/notify-send").expanduser()),
-            "--hint=string:desktop-entry:org.kde.dolphin",
-            "-i", "dialog-information",
-            "-a", "Folder Actions",
-            summary,
-            body
-        ])
-
-    @staticmethod
-    def log(filename: Path, string: str):
-        now = datetime.datetime.now()
-        print("[{}] {}: {}".format(now, filename.name, string), file=sys.stderr)
-
-
 class Config:
     def __init__(self, path: Path):
         self.data = {}
@@ -90,10 +72,17 @@ class FileHandler:
 
             self.rule_instance.append(rule_instance)
 
-    @staticmethod
-    def show_info(action: str, filename: Path, string: str):
-        Logger.log(filename, "{}: {}".format(action, string))
-        Logger.notify(action, "{}: {}".format(filename.name, string))
+    def show_info(self, action: str, filename: Path, string: str):
+        now = datetime.datetime.now()
+        print("[{}] {}: {}: {}".format(now, filename.name, action, string), file=sys.stderr)
+
+        notify_script = self.config.get("notify_script")
+        if notify_script is not None:
+            subprocess.run(notify_script.format_map({
+                "action": action,
+                "filename": filename.name,
+                "string": string
+            }), shell=True)
 
     def source_target_info(self, action: str, source: Path, target: Path):
         self.show_info(action, source, "{} -> {}".format(source.name, target))

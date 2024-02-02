@@ -17,30 +17,4 @@ At the heart, it uses [watchdog](https://pypi.org/project/watchdog/) to observe 
 
 The script looks into `~/.config/folder-actions/rules` and loads any Python script. Each script should contain a `Rule` class containing at least a `get_rules()` method returning a list of paths to match.
 
-### Example rule script
-
-```python
-import json
-import os
-
-
-class Rule:
-    def get_rules(self):
-        return [
-            dict(regex=r"^some-file.txt$", target="~/target-dir/some-file.txt"),
-            dict(regex=r"^another-file.json$", target="~/some-dir/another-file.json", action=self.prettyprint_json_action)
-        ]
-
-    def prettyprint_json_action(self, filename, target):
-        with open(filename, "r") as input_file:
-            with open(target, "w") as output_file:
-                json.dump(json.load(input_file), output_file, indent=2, sort_keys=True)
-
-        os.remove(filename)
-```
-
-With that rule, Folder Actions will look for two files: `some-file.txt` and `another-file.json`.
-
-In case it finds `some-file.txt`, it will move it to `~/target-dir/some-file.txt` without changing anything of it.
-
-In case it finds `another-file.json`, it will read the file as JSON and write the JSON pretty-printed (i.e. indented with two spaces) to the target file. After that, it will remove the source file.
+Take a look into the [examples](examples) folder for some example rule files as well as the [Rule class structure](examples/rule_structure.py).

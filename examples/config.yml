@@ -13,4 +13,8 @@ recent_files:
   max_files: 10
 
 # A command or script which should be executed when triggering an action
+# The following placeholders can be used:
+# * action: The title of the action as specified by the rule
+# * filename: The input filename (without path)
+# * message: The message passed by the rule
 notify_script: "notify-send -i dialog-information -a 'Folder Actions' '{action}' '{filename}: {message}'"

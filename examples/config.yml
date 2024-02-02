@@ -1,0 +1,13 @@
+# Define a list of placeholders which can be used in rule target paths
+placeholders:
+  some_dir: /path/to/some/dir
+  another_dir: / path/to/some/other/dir
+
+# Configure sym-linking moved files into a specific folder
+# ATTENTION: Files in this folder will be removed by Folder Actions!
+recent_files:
+  # Path where to store the symlinks
+  path: /path/where/to/put/symlinks
+
+  # How many files should be kept in this folder?
+  max_files: 10

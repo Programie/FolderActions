@@ -13,6 +13,12 @@ At the heart, it uses [watchdog](https://pypi.org/project/watchdog/) to observe 
 * Define your rules (see bellow)
 * Execute `folder-actions.py watch /path/to/watch`
 
+## Configuration
+
+The main configuration is done using a file in YAML format. The configuration should be stored at `~/.config/folder-actions/config.yml`.
+
+Take a look at the [example config.yml](examples/config.yml).
+
 ## Defining rules
 
 The script looks into `~/.config/folder-actions/rules` and loads any Python script. Each script should contain a `Rule` class containing at least a `get_rules()` method returning a list of paths to match.

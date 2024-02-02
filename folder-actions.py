@@ -96,24 +96,18 @@ class FileHandler:
 
             rule_instance = module.Rule()
 
-            rule_instance.action_info = self.action_info
-            rule_instance.action_error = self.action_error
+            rule_instance.show_info = self.show_info
             rule_instance.source_target_info = self.source_target_info
 
             self.rule_instance.append(rule_instance)
 
     @staticmethod
-    def action_info(action: str, filename: Path, string: str):
-        Logger.log(filename, "{}: {}".format(action, string))
-        Logger.notify(action, "{}: {}".format(filename.name, string))
-
-    @staticmethod
-    def action_error(action: str, filename: Path, string: str):
+    def show_info(action: str, filename: Path, string: str):
         Logger.log(filename, "{}: {}".format(action, string))
         Logger.notify(action, "{}: {}".format(filename.name, string))
 
     def source_target_info(self, action: str, source: Path, target: Path):
-        self.action_info(action, source, "{} -> {}".format(source.name, target))
+        self.show_info(action, source, "{} -> {}".format(source.name, target))
 
     def move_action(self, source: Path, target: Path):
         self.source_target_info("Moving file", source, target)
@@ -130,7 +124,7 @@ class FileHandler:
                         if self.handle_file_with_rule(rule, match, file_path):
                             return
         except BaseException:
-            self.action_error("Exception occurred", file_path, traceback.format_exc())
+            self.show_info("Exception occurred", file_path, traceback.format_exc())
 
     def handle_file_with_rule(self, rule: Rule, match: re.Match, file_path: Path):
         if rule.action is not None:

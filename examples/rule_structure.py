@@ -27,13 +27,13 @@ class Rule:
     # The following methods are available to be called by your rule, but you should not overwrite them.
 
     @staticmethod
-    def show_info(action: str, filename: Path, string: str) -> None:
+    def show_info(action: str, filename: Path, message: str) -> None:
         """
         Show an info message to the user (by logging it and executing the notify script).
 
         :param action: The action title understandable to the user (i.e. "Moving file", "Extracting archive" or "Uploading file")
         :param filename: The input file being processed
-        :param string: The message to be shown to the user
+        :param message: The message to be shown to the user
         """
         pass
 

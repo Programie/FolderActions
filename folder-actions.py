@@ -72,16 +72,16 @@ class FileHandler:
 
             self.rule_instance.append(rule_instance)
 
-    def show_info(self, action: str, filename: Path, string: str):
+    def show_info(self, action: str, filename: Path, message: str):
         now = datetime.datetime.now()
-        print("[{}] {}: {}: {}".format(now, filename.name, action, string), file=sys.stderr)
+        print("[{}] {}: {}: {}".format(now, filename.name, action, message), file=sys.stderr)
 
         notify_script = self.config.get("notify_script")
         if notify_script is not None:
             subprocess.run(notify_script.format_map({
                 "action": action,
                 "filename": filename.name,
-                "string": string
+                "message": message
             }), shell=True)
 
     def source_target_info(self, action: str, source: Path, target: Path):

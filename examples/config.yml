@@ -13,4 +13,4 @@ recent_files:
   max_files: 10
 
 # A command or script which should be executed when triggering an action
-notify_script: "notify-send -i dialog-information -a 'Folder Actions' '{action}' '{filename}: {string}'"
+notify_script: "notify-send -i dialog-information -a 'Folder Actions' '{action}' '{filename}: {message}'"

@@ -18,17 +18,6 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler, FileSystemEvent, FileSystemMovedEvent, FileClosedEvent
 
 
-# Systemd user service:
-# [Unit]
-# Description=Folder Actions
-#
-# [Service]
-# ExecStart=/path/to/folder-actions.py watch /home/user/Downloads
-# Restart=on-failure
-#
-# [Install]
-# WantedBy=default.target
-
 class Logger:
     @staticmethod
     def notify(summary: str, body: str):
